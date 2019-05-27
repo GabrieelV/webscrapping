@@ -2,7 +2,7 @@
 
 import requests, os, bs4, selenium
 
-def downloadImagem(url, pagina):
+def downloadImagem(url, pagina, quantidade):
 	'''Baixa as imagens dos filmes da página'''
 	try:
 		os.makedirs('fotos', exist_ok=True) # Armazena comics na pasta ./fotos
@@ -21,7 +21,7 @@ def downloadImagem(url, pagina):
 		i = pagina - 1
 		j = 0
 		
-		while i < (pagina + 20):
+		while i < quantidade:
 			if filmeElem == []:
 				print('Não foi possível encontrar a imagem')
 			else:
@@ -36,7 +36,7 @@ def downloadImagem(url, pagina):
 				res.raise_for_status()
 
 				# Salva a imagem na pasta ./fotos
-				imageFile = open(os.path.join('fotos', os.path.basename(str(i + 1))), 'wb')
+				imageFile = open(os.path.join('fotos', os.path.basename(str(i + 1)) + '.jpg'), 'wb')
 				for chunk in res.iter_content(100000):
 					imageFile.write(chunk)
 				imageFile.close()

@@ -54,19 +54,15 @@ def pegaAnoFilme():
 
 def pegaRatingFilme():
 	'''Pega o rating do filme na página.'''
-	
 	try:
-		rating = browser.find_elements_by_class_name('ratings-bar')
+		rating = browser.find_elements_by_name('ir')
 	except:
 		print('Rating nao encontrado')
 		return
 
 	for filme in rating:
-		ratingFilme = filme.text.split('Rate ')[0]
-		if ratingFilme == '':
-			informacoes['ratingDoFilme'].append('n/a')
-		else:
-			informacoes['ratingDoFilme'].append(ratingFilme.split(' ')[0])
+		#print(filme.text)
+		informacoes['ratingDoFilme'].append(filme.text)
 		
 	print('Pegando rating dos filmes ... ' + str(len(informacoes['ratingDoFilme'])) + '/' + str(quantidade))
 
@@ -179,7 +175,7 @@ for pagina in range(1, quantidade + 1, 250):
 	pegaRatingFilme()
 	pegaMetascoreFilme()
 	pegaVotosFilme()
-#	downloadImagem(url, pagina, quantidade)
+	downloadImagem(url, pagina, quantidade)
 	os.system(limpar)
 
 
@@ -210,4 +206,3 @@ if email == 1:
 
 print()
 print('Processo concluido.')
-
