@@ -2,7 +2,7 @@
 
 from selenium import webdriver
 import requests, os, bs4, platform, time
-from imagem import downloadImagem
+from imagemFilme import downloadImagem
 from envioEmail import enviarEmail
 
 # ========================= Funções =================================== #
@@ -125,7 +125,7 @@ def gravaRankingNoArquivo(pagina):
 	a = pagina - 1
 	try:
 		arquivo = open('Ranking.txt', 'a')
-		for a in range(a + 250):
+		for a in range(20):
 			arquivo.write('{: <8}''{: <8}'.format(str(a + 1), informacoes['ratingDoFilme'][a]))
 			if informacoes['metascoreDoFilme'][a] == '':
 				arquivo.write('{: <13}'.format('n/a'))
@@ -150,6 +150,7 @@ if platform.system() == 'Linux':
 else:
 	limpar = 'cls'
 
+# Dicionario com os dados capturados dos filmes
 informacoes = {'nomeDoFilme':[], 'anoDoFilme':[], 'ratingDoFilme':[], 'metascoreDoFilme':[], 'votosDoFilme':[]}
 
 tipo = int(input('Como deseja ordenar:\n 1 - Votos\n 2 - Estrela\n 3 - Nome\nInforme o numero: ' ))
@@ -179,7 +180,7 @@ for pagina in range(1, quantidade + 1, 250):
 	pegaRatingFilme()
 	pegaMetascoreFilme()
 	pegaVotosFilme()
-#	downloadImagem(url, pagina, quantidade)
+	downloadImagem(url, pagina, quantidade)
 	os.system(limpar)
 
 
@@ -211,3 +212,4 @@ if email == 1:
 print()
 print('Processo concluido.')
 
+# ===================================================================== #
